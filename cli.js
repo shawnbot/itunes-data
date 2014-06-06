@@ -112,7 +112,7 @@ if (argv.artists) {
         artist = artistsByName[name];
     if (!artist) {
       artist = artistsByName[name] = {
-        Artist: name,
+        Name: name,
         "Track Count": 1,
         "Play Count": plays
       };
@@ -128,10 +128,9 @@ if (argv.artists) {
       .map(function(name) {
         return artistsByName[name];
       });
+    // console.log("got %d artists", list.length);
     list.forEach(function(artist) {
-      setImmediate(function() {
-        artists.write(artist);
-      });
+      artists.write(artist);
     });
   });
 }
