@@ -7,6 +7,15 @@ $ npm install itunes-data
 ```
 
 ## Node usage
+The module's `parser()` function returns an streaming XML parser that emits
+events for different types of data that it encounters in Apple's XML-based
+[property list](http://en.wikipedia.org/wiki/Property_list) files:
+
+* `track` emits a track (song) object with fields such as `Name`, `Artist`, `Album`, `Genre`, and so on.
+* `artist` emits an artist object with fields such as `Name`, `Track Count`, and `Play Count`.
+* `album` emits an album object with fields such as `Artist`, `Album Artist`, `Track Count`, and so on.
+* `playlist` emits a playlist album with fields such as `Name`, `Tracks` (an array of track objects), and so on.
+* `library` emits a big, nested object of your entire library.
 
 ```js
 var fs = require("fs"),
