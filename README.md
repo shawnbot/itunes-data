@@ -28,7 +28,7 @@ stream.pipe(parser);
 ## Command Line
 Or install the command-line utility:
 
-```sh
+```
 $ npm install -g itunes-data
 $ itunes-data --help
 Export an iTunes libray XML file.
@@ -66,4 +66,9 @@ $ itunes-data --library library.json ~/Music/iTunes/iTunes\ Media\ Library.xml
 If you leave off the filename for any of the `--artists`, `--tracks`,
 `--playlists`, `--albums` or `--library` list options the data will be written
 to stdout, in which case you probably want to specify the `--format` option as
-well. You should only use *one* of the list options in this case!
+well. You should only use *one* of the list options in this case! 
+
+```sh
+$ itunes-data --artists --format json \
+    ~/Music/iTunes/iTunes\ Media\ Library.xml > artists.json
+```
