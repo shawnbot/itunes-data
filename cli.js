@@ -3,6 +3,8 @@ var fs = require("fs"),
     Parser = require("./lib/parser"),
     writer = require("./lib/writer"),
     sort = require("./lib/sort"),
+    progress = require("progress-stream"),
+    meter = require("multimeter")(process),
     optimist = require("optimist")
       .usage("Export an iTunes libray XML file.\n\nUsage: $0 [options] [path/to/library.xml]")
         .describe("tracks", "Save tracks (songs) to this file")
@@ -27,25 +29,10 @@ if (!argc.length) {
 }
 
 var input = argc.length
-      ? fs.createReadStream(argc[0])
+      ? createReadProgressStream(argc[0])
       : process.stdin,
     streams = [],
     parser = new Parser();
-
-function createWriteStream(file, format) {
-  var type = format || argv.format;
-  if (file === true) {
-    file = "-";
-  } else if (!format) {
-    type = file.split(".").pop() || argv.format;
-  }
-  var stream = writer.createWriteStream(type);
-  stream.pipe(file === "-"
-    ? process.stdout
-    : fs.createWriteStream(file));
-  streams.push(stream);
-  return stream;
-}
 
 if (argv.tracks) {
   var tracks = createWriteStream(argv.tracks);
@@ -128,7 +115,6 @@ if (argv.artists) {
       .map(function(name) {
         return artistsByName[name];
       });
-    // console.log("got %d artists", list.length);
     list.forEach(function(artist) {
       artists.write(artist);
     });
@@ -178,6 +164,39 @@ parser.on("end", function done() {
   streams.forEach(function(stream) {
     stream.end();
   });
+  meter.destroy();
 });
 
 input.pipe(parser);
+
+function createReadProgressStream(filename) {
+  var stream = fs.createReadStream(filename),
+      stat = fs.statSync(filename),
+      prog = progress({
+        length: stat.size,
+        time: 100
+      });
+  console.log("reading:", filename, "(" + stat.size, "bytes)");
+  meter.drop(function(bar) {
+    bar.width = 50;
+    prog.on("progress", function(e) {
+      bar.percent(e.percentage);
+    });
+  });
+  return stream.pipe(prog);
+}
+
+function createWriteStream(file, format) {
+  var type = format || argv.format;
+  if (file === true) {
+    file = "-";
+  } else if (!format) {
+    type = file.split(".").pop() || argv.format;
+  }
+  var stream = writer.createWriteStream(type);
+  stream.pipe(file === "-"
+    ? process.stdout
+    : fs.createWriteStream(file));
+  streams.push(stream);
+  return stream;
+}
