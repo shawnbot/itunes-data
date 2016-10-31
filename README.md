@@ -28,7 +28,7 @@ parser.on("track", function(track) {
 });
 
 parser.on("album", function(album) {
-    console.log("album:", track);
+    console.log("album:", album);
 });
 
 stream.pipe(parser);
