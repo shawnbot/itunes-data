@@ -6,7 +6,7 @@ var fs = require("fs"),
     progress = require("progress-stream"),
     meter = require("multimeter")(process),
     optimist = require("optimist")
-      .usage("Export an iTunes libray XML file.\n\nUsage: $0 [options] [path/to/library.xml]")
+      .usage("Export an iTunes library XML file.\n\nUsage: $0 [options] [path/to/library.xml]")
         .describe("tracks", "Save tracks (songs) to this file")
         .alias("t", "tracks")
         .alias("songs", "tracks")

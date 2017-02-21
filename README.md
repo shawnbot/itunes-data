@@ -40,7 +40,7 @@ Or install the command-line utility:
 ```
 $ npm install -g itunes-data
 $ itunes-data --help
-Export an iTunes libray XML file.
+Export an iTunes library XML file.
 
 Usage: itunes-data [options] [path/to/library.xml]
 
