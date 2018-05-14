@@ -25,7 +25,7 @@
   "homepage": "https://github.com/shawnbot/itunes-data",
   "dependencies": {
     "JSONStream": "^0.8.2",
-    "fast-csv": "^0.4.0",
+    "fast-csv": "^0.6.0",
     "ldjson-stream": "0.0.1",
     "multimeter": "^0.1.1",
     "node-expat": "^2.2.0",
