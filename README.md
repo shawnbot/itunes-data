@@ -21,7 +21,7 @@ events for different types of data that it encounters in Apple's XML-based
 var fs = require("fs"),
     itunes = require("itunes-data"),
     parser = itunes.parser(),
-    stream = fs.createReadStream("path/to/iTunes Media Library.xml");
+    stream = fs.createReadStream("path/to/iTunes Music Library.xml");
 
 parser.on("track", function(track) {
     console.log("track:", track);
@@ -57,19 +57,19 @@ Options:
 Export a all tracks (songs) in your library as comma-separated values (CSV):
 
 ```sh
-$ itunes-data --tracks tracks.csv ~/Music/iTunes/iTunes\ Media\ Library.xml
+$ itunes-data --tracks tracks.csv ~/Music/iTunes/iTunes\ Music\ Library.xml
 ```
 
 Export a all albums in your library as tab-separated values:
 
 ```sh
-$ itunes-data --albums albums.tsv ~/Music/iTunes/iTunes\ Media\ Library.xml
+$ itunes-data --albums albums.tsv ~/Music/iTunes/iTunes\ Music\ Library.xml
 ```
 
 Export your entire library as JSON:
 
 ```sh
-$ itunes-data --library library.json ~/Music/iTunes/iTunes\ Media\ Library.xml
+$ itunes-data --library library.json ~/Music/iTunes/iTunes\ Music\ Library.xml
 ```
 
 If you leave off the filename for any of the `--artists`, `--tracks`,
@@ -79,5 +79,5 @@ well. You should only use *one* of the list options in this case!
 
 ```sh
 $ itunes-data --artists --format json \
-    ~/Music/iTunes/iTunes\ Media\ Library.xml > artists.json
+    ~/Music/iTunes/iTunes\ Music\ Library.xml > artists.json
 ```
